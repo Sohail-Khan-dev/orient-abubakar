@@ -44,7 +44,7 @@ include 'includes/header.php';
       <div class="stat on-blue"><div class="num" data-value="96">0<i>家</i></div><div class="label">全球业务机构<small>Global Institutions (incl. 1 listed overseas)</small></div></div>
       <div class="stat on-blue"><div class="num" data-value="5.5">0<i>万</i></div><div class="label">海外员工（占集团64%）<small>Overseas Staff (64% of group)</small></div></div>
     </div>
-    <p class="lead" style="margin-top:28px">海外制造企业数占集团制造企业近50% · Overseas factories make up nearly 50% of the group's manufacturing companies</p>
+    <p class="lead lead-spaced">海外制造企业数占集团制造企业近50% · Overseas factories make up nearly 50% of the group's manufacturing companies</p>
   </div>
 </section>
 

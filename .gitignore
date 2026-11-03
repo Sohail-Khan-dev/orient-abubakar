@@ -1,5 +1,6 @@
 # Contact-form submissions (personal data, never deploy or commit)
 messages.log
+private/
 
 # Local tooling
 .claude/settings.local.json

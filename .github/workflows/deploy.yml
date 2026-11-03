@@ -9,6 +9,10 @@ concurrency:
   group: deploy-namecheap
   cancel-in-progress: false
 
+# The deploy only needs to read the repository.
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,12 +28,21 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
+          # Recommended: the server's known_hosts lines, stored as a secret, so the
+          # host key is verified instead of trusted on first use.
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+          if [ -n "$SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "::warning::SSH_KNOWN_HOSTS secret is not set; trusting the host key on first use."
+            ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+          fi
+          chmod 600 ~/.ssh/known_hosts
 
       - name: Check remote path
         env:
@@ -60,14 +73,19 @@ jobs:
           # No --delete: files removed from the repo are kept on the server, so a wrong path can never remove anything.
           rsync -avz \
             --chmod=D755,F644 \
-            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=yes" \
+            -e "ssh -i $HOME/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=yes" \
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='.claude/' \
             --exclude='.gitignore' \
             --exclude='.htaccess' \
             --exclude='messages.log' \
+            --exclude='private/' \
             --exclude='cgi-bin/' \
             --exclude='.well-known/' \
             --exclude='*.md' \
             ./ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key ~/.ssh/known_hosts

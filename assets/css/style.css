@@ -245,6 +245,7 @@ a { color: inherit; text-decoration: none; }
 
 .lead { max-width: 900px; margin: 0 auto; text-align: center; color: var(--gray); }
 .lead + .lead { margin-top: 14px; }
+.lead.lead-spaced { margin-top: 28px; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -503,6 +504,9 @@ a { color: inherit; text-decoration: none; }
 
 .form-msg.ok { background: #e8f6ec; color: #1e7a3c; border: 1px solid #bfe5cb; }
 .form-msg.err { background: #fdecec; color: #b3261e; border: 1px solid #f5c6c4; }
+
+/* Honeypot wrapper: hidden from people, must stay hidden even if a layout rule sets display. */
+.form-hp[hidden] { display: none; }
 
 /* ---------- Icons ---------- */
 .stat-icon { width: 40px; height: 40px; margin: 0 auto 10px; }

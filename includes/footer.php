@@ -29,5 +29,8 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<?php if ($page === 'home'): ?>
+<script src="assets/js/home.js"></script>
+<?php endif; ?>
 </body>
 </html>

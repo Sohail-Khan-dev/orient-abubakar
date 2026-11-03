@@ -1,15 +1,15 @@
-// Mobile navigation toggle
+// Mobile navigation toggle (the home page uses its own side drawer, see home.js)
 var navToggle = document.getElementById('navToggle');
 var mainNav = document.getElementById('mainNav');
 
-if (navToggle && mainNav) {
+if (navToggle && mainNav && !document.getElementById('hmDrawer')) {
   navToggle.addEventListener('click', function () {
     mainNav.classList.toggle('open');
   });
 }
 
 // Animate stat numbers when they scroll into view
-var nums = document.querySelectorAll('.stat .num[data-value]');
+var nums = document.querySelectorAll('.stat .num[data-value], .hm-stat-value .num[data-value], .hm-overseas-item .num[data-value]');
 
 if ('IntersectionObserver' in window && nums.length) {
   var observer = new IntersectionObserver(function (entries) {

@@ -1,7 +1,25 @@
 DirectoryIndex index.php
 Options -Indexes
+ServerSignature Off
+ErrorDocument 404 /404.php
 
-<FilesMatch "\.(log|md)$">
+# Refuse hidden files and folders (.env, .git, ...), except .well-known.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # The site only uses GET, HEAD and POST.
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|POST)$ [NC]
+  RewriteRule .* - [F,L]
+
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule (^|/)\. - [F,L]
+
+  # Obvious injection and traversal in the raw URL (PHP repeats the check on the decoded URL).
+  RewriteCond %{QUERY_STRING} (\.\./|%2e%2e|<script|%3Cscript|union.*select|\$\{jndi:) [NC]
+  RewriteRule .* - [F,L]
+</IfModule>
+
+<FilesMatch "\.(log|md|bak|sql|swp|old|ini|conf|env|dist)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

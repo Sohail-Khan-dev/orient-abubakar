@@ -3,6 +3,10 @@
 $page = $page ?? '';
 $pageTitle = $pageTitle ?? '东方国际（集团）有限公司 | Orient International Holding';
 
+// Refuse attacks, abusive clients and crawlers before anything is rendered.
+require_once __DIR__ . '/request_guard.php';
+guard_all();
+
 // Security headers. Sent from PHP (not .htaccess) so they reach the server with the deploy.
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
@@ -41,10 +45,14 @@ function has_asset($path) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <title><?php echo htmlspecialchars($pageTitle); ?></title>
 <link rel="stylesheet" href="assets/css/style.css">
+<?php if ($page === 'home'): ?>
+<link rel="stylesheet" href="assets/css/home.css">
+<?php endif; ?>
 </head>
-<body>
+<body<?php echo $page === 'home' ? ' class="page-home"' : ''; ?>>
 
 <header class="site-header">
   <div class="container header-inner">

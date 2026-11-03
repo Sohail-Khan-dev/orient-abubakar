@@ -1,4 +1,8 @@
 <?php
+// Refuse attacks, abusive clients and crawlers before the form is processed.
+require_once __DIR__ . '/includes/request_guard.php';
+guard_all();
+
 $page = 'contact';
 $pageTitle = '联系我们 Contact Us | 东方国际（集团）有限公司';
 

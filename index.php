@@ -40,6 +40,10 @@ $strategy = [
     <li><a href="<?php echo $item[0]; ?>"><span class="zh"><?php echo $item[1]; ?></span><span class="en"><?php echo $item[2]; ?></span></a></li>
     <?php endforeach; ?>
   </ul>
+  <div class="hm-qr">
+    <img src="assets/img/qrcode.jpg" alt="微信公众号 WeChat" width="120" height="120">
+    <p>微信公众号 WeChat</p>
+  </div>
 </aside>
 
 <!-- Hero: full-screen video -->

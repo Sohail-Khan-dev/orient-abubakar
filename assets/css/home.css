@@ -263,6 +263,30 @@ body.page-home .nav-toggle {
 .hm-drawer a:hover { background: var(--hm-blue-2); color: #fff; }
 .hm-drawer a:hover .en { color: #fff; }
 
+.hm-qr {
+  padding: 30px 0;
+  text-align: center;
+  color: #505050;
+  font-size: 13px;
+}
+
+.hm-qr img {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 10px;
+}
+
+/* Full logo used in the transparent home header (reference logo, 301 x 50) */
+body.page-home .logo-full { height: 40px; width: auto; }
+
+.psb-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 /* ---------- Hero: full-screen video with bouncing arrow ---------- */
 .hm-hero {
   position: relative;

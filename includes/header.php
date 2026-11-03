@@ -47,6 +47,7 @@ function has_asset($path) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <title><?php echo htmlspecialchars($pageTitle); ?></title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="assets/css/style.css">
 <?php if ($page === 'home'): ?>
 <link rel="stylesheet" href="assets/css/home.css">
@@ -57,6 +58,9 @@ function has_asset($path) {
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.php" class="logo">
+      <?php if ($page === 'home' && has_asset('img/logo.png')): ?>
+      <img src="assets/img/logo.png" alt="东方国际（集团）有限公司 ORIENT INTERNATIONAL HOLDING" class="logo-full">
+      <?php else: ?>
       <?php if (has_asset('img/logo-mark.png')): ?>
       <img src="assets/img/logo-mark.png" alt="" class="logo-img">
       <?php else: ?>
@@ -70,6 +74,7 @@ function has_asset($path) {
         <strong>东方国际（集团）有限公司</strong>
         <small>ORIENT INTERNATIONAL HOLDING CO., LTD.</small>
       </span>
+      <?php endif; ?>
     </a>
 
     <button class="nav-toggle" id="navToggle" aria-label="菜单 Menu">☰</button>

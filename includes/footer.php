@@ -23,7 +23,12 @@
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p>© 1994-<?php echo date('Y'); ?> 东方国际（集团）有限公司. All Rights Reserved.</p>
+      <p>© 1994-<?php echo date('Y'); ?> 东方国际（集团）有限公司. All Rights Reserved.
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">沪ICP备16002435号</a></p>
+      <p>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010502000938" target="_blank" rel="noopener">
+          <?php asset_img('icons/psb-record.png', '', 'psb-icon'); ?>沪公网安备 31010502000938号</a>
+      </p>
     </div>
   </div>
 </footer>

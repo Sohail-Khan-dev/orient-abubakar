@@ -68,12 +68,12 @@ $history = [
     </div>
 
     <div class="stats-grid">
-      <div class="stat"><?php asset_img('icons/home_icon01.png', '', 'stat-icon'); ?><div class="num" data-value="604">0<i>亿</i></div><div class="label">总资产<small>Total Assets (¥100M)</small></div></div>
-      <div class="stat"><?php asset_img('icons/home_icon04.png', '', 'stat-icon'); ?><div class="num" data-value="736">0<i>亿</i></div><div class="label">2025年营业收入<small>Revenue (¥100M)</small></div></div>
-      <div class="stat"><?php asset_img('icons/home_icon05.png', '', 'stat-icon'); ?><div class="num" data-value="5.3">0<i>万</i></div><div class="label">员工<small>Employees (10K)</small></div></div>
-      <div class="stat"><?php asset_img('icons/home_icon03.png', '', 'stat-icon'); ?><div class="num" data-value="376">0<i>家</i></div><div class="label">所属企业<small>Subsidiaries</small></div></div>
-      <div class="stat"><?php asset_img('icons/home_icon06.png', '', 'stat-icon'); ?><div class="num" data-value="4">0<i>家</i></div><div class="label">上市公司<small>Listed Companies</small></div></div>
-      <div class="stat"><?php asset_img('icons/home_icon02.png', '', 'stat-icon'); ?><div class="num" data-value="72">0<i>家</i></div><div class="label">海外业务机构<small>Overseas Branches</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon01.png', '', 'stat-icon'); ?><div class="num" data-value="604">604<i>亿</i></div><div class="label">总资产<small>Total Assets (¥100M)</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon04.png', '', 'stat-icon'); ?><div class="num" data-value="736">736<i>亿</i></div><div class="label">2025年营业收入<small>Revenue (¥100M)</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon05.png', '', 'stat-icon'); ?><div class="num" data-value="5.3">5.3<i>万</i></div><div class="label">员工<small>Employees (10K)</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon03.png', '', 'stat-icon'); ?><div class="num" data-value="376">376<i>家</i></div><div class="label">所属企业<small>Subsidiaries</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon06.png', '', 'stat-icon'); ?><div class="num" data-value="4">4<i>家</i></div><div class="label">上市公司<small>Listed Companies</small></div></div>
+      <div class="stat"><?php asset_img('icons/home_icon02.png', '', 'stat-icon'); ?><div class="num" data-value="72">72<i>家</i></div><div class="label">海外业务机构<small>Overseas Branches</small></div></div>
     </div>
   </div>
 </section>

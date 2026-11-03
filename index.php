@@ -89,7 +89,7 @@ $strategy = [
         <span class="zh"><?php echo $s[1]; ?></span>
         <span class="en"><?php echo $s[2]; ?></span>
       </div>
-      <div class="hm-stat-value"><span class="num" data-value="<?php echo $s[3]; ?>">0</span><i><?php echo $s[4]; ?></i></div>
+      <div class="hm-stat-value"><span class="num" data-value="<?php echo $s[3]; ?>"><?php echo $s[3]; ?></span><i><?php echo $s[4]; ?></i></div>
     </div>
     <?php endforeach; ?>
   </div>
@@ -147,7 +147,7 @@ $strategy = [
         <span class="zh"><?php echo $f[1]; ?></span>
         <span class="en"><?php echo $f[2]; ?></span>
       </div>
-      <span class="num" data-value="<?php echo $f[3]; ?>">0</span>
+      <span class="num" data-value="<?php echo $f[3]; ?>"><?php echo $f[3]; ?></span>
     </div>
     <?php endforeach; ?>
   </div>

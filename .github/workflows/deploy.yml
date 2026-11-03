@@ -1,0 +1,73 @@
+name: Deploy to Namecheap
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-namecheap
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
+
+      - name: Set up SSH key and host
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Check remote path
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          case "$REMOTE_PATH" in
+            ""|"/"|"~"|"~/") echo "REMOTE_PATH is empty or too broad. Nothing was changed."; exit 1 ;;
+          esac
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" -o StrictHostKeyChecking=yes "$SSH_USER@$SSH_HOST" "bash -s -- $(printf '%q' "$REMOTE_PATH")" <<'REMOTE'
+          p="$1"
+          [ -d "$p" ] || { echo "Remote folder $p does not exist. Nothing was changed."; exit 1; }
+          case "$p" in
+            *public_html*) echo "Refusing: $p is the main site folder. Nothing was changed."; exit 1 ;;
+          esac
+          echo "Remote folder OK: $p"
+          REMOTE
+
+      - name: Sync site to server
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          # No --delete: files removed from the repo are kept on the server, so a wrong path can never remove anything.
+          rsync -avz \
+            --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=yes" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.claude/' \
+            --exclude='.gitignore' \
+            --exclude='.htaccess' \
+            --exclude='messages.log' \
+            --exclude='cgi-bin/' \
+            --exclude='.well-known/' \
+            --exclude='*.md' \
+            ./ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
